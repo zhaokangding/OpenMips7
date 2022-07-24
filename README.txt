@@ -1,4 +1,4 @@
-# OpenMips7
+# OpenMips8
 a review after VLSI exercies
 experimental platform : sword
 |-openMIPS_7.src
