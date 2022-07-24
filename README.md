@@ -1,18 +1,18 @@
 # OpenMips7
 a review after VLSI exercies
 
--openMIPS_7.src
+|-openMIPS_7.src
 
- |--constrs_1
+  |--constrs_1
  
-    |---new
+     |---new
 
-        |----sword_master.xdc
+         |----sword_master.xdc
         
- |--sim_1
+  |--sim_1
  
-    |---new
+     |---new
     
-        |----sopc_tb.v
+         |----sopc_tb.v
         
- |--sources_1
+  |--sources_1
