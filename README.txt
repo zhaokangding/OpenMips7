@@ -1,4 +1,5 @@
 # OpenMips_7
+base <自己动手写CPU>
 a review after VLSI exercies
 experimental platform : sword
 |-openMIPS_7.src
