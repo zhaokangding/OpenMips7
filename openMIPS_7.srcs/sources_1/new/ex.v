@@ -207,688 +207,725 @@ module ex(
             o_lo = 32'b0;
             o_mem_addr = 32'b0;
             case(i_aluop)
-                `AluOp_ORI : logic_out = i_reg1 | i_reg2;
-                `AluOp_XORI: logic_out = i_reg1 ^ i_reg2;
-                `AluOp_LUI : logic_out = {i_reg2[15:0],{16{1'b0}}};
-                `AluOp_ANDI: logic_out = i_reg1 & i_reg2;
-                `AluOp_AND : logic_out = i_reg1 & i_reg2;
-                `AluOp_OR  : logic_out = i_reg1 | i_reg2;
-                `AluOp_XOR : logic_out = i_reg1 ^ i_reg2;
-                `AluOp_NOR : logic_out = ~(i_reg1 | i_reg2);
-                `AluOp_SLL : logic_out = i_reg2 << i_reg1;
-                `AluOp_SRL : logic_out = i_reg2 >> i_reg1;
-                `AluOp_SRA : logic_out = ({32{i_reg2[31]}} << (6'd32-{1'b0, i_reg1[4:0]})) | (i_reg2 >> i_reg1[4:0]);
-                `AluOp_SLLV: logic_out = i_reg2 << i_reg1;
-                `AluOp_SRLV: logic_out = i_reg2 >> i_reg1;
-                `AluOp_SRAV: logic_out = ({32{i_reg2[31]}} << (6'd32-{1'b0, i_reg1[4:0]})) | (i_reg2 >> i_reg1[4:0]);
-                `AluOp_MOVN: logic_out = i_reg1;
-                `AluOp_MOVZ: logic_out = i_reg1;
-                `AluOp_MFHI: logic_out = HI;
-                `AluOp_MFLO: logic_out = LO;
-                `AluOp_MFC0: logic_out = CP0_RDATA;
-                `AluOp_MTHI: begin
-                                logic_out = i_reg1;
-                                o_whilo = 1'b1;
-                                {o_hi,o_lo} = {i_reg1,LO};
-                             end
-                `AluOp_MTLO: begin
-                                logic_out = i_reg1;
-                                o_whilo = 1'b1;
-                                {o_hi,o_lo} = {HI,i_reg1};
-                             end
-                             
-                `AluOp_ADD: begin
-                                arith_out = result_sum;
-                                if(i_reg1[31]==1 & i_reg2[31]==1 & result_sum[31]==0) begin
-                                    over_sum = 1'b1;
-                                end
-                                else if(i_reg1[31]==0 & i_reg2[31]==0 & result_sum[31]==1) begin
-                                    over_sum = 1'b1;
+            `AluOp_ORI : logic_out = i_reg1 | i_reg2;
+            `AluOp_XORI: logic_out = i_reg1 ^ i_reg2;
+            `AluOp_LUI : logic_out = {i_reg2[15:0],{16{1'b0}}};
+            `AluOp_ANDI: logic_out = i_reg1 & i_reg2;
+            `AluOp_AND : logic_out = i_reg1 & i_reg2;
+            `AluOp_OR  : logic_out = i_reg1 | i_reg2;
+            `AluOp_XOR : logic_out = i_reg1 ^ i_reg2;
+            `AluOp_NOR : logic_out = ~(i_reg1 | i_reg2);
+            `AluOp_SLL : logic_out = i_reg2 << i_reg1;
+            `AluOp_SRL : logic_out = i_reg2 >> i_reg1;
+            `AluOp_SRA : logic_out = ({32{i_reg2[31]}} << (6'd32-{1'b0, i_reg1[4:0]})) | (i_reg2 >> i_reg1[4:0]);
+            `AluOp_SLLV: logic_out = i_reg2 << i_reg1;
+            `AluOp_SRLV: logic_out = i_reg2 >> i_reg1;
+            `AluOp_SRAV: logic_out = ({32{i_reg2[31]}} << (6'd32-{1'b0, i_reg1[4:0]})) | (i_reg2 >> i_reg1[4:0]);
+            `AluOp_MOVN: logic_out = i_reg1;
+            `AluOp_MOVZ: logic_out = i_reg1;
+            `AluOp_MFHI: logic_out = HI;
+            `AluOp_MFLO: logic_out = LO;
+            `AluOp_MFC0: logic_out = CP0_RDATA;
+            `AluOp_MTHI: 
+                begin
+                    logic_out = i_reg1;
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = {i_reg1,LO};
+                end
+            `AluOp_MTLO: 
+                begin
+                    logic_out = i_reg1;
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = {HI,i_reg1};
+                end
+                         
+            `AluOp_ADD: 
+                begin
+                    arith_out = result_sum;
+                    if(i_reg1[31]==1 & i_reg2[31]==1 & result_sum[31]==0) begin
+                        over_sum = 1'b1;
+                    end
+                    else if(i_reg1[31]==0 & i_reg2[31]==0 & result_sum[31]==1) begin
+                        over_sum = 1'b1;
+                    end
+                    else begin
+                        over_sum = 1'b0;
+                    end
+                end
+            `AluOp_ADDU:
+                begin
+                    arith_out = result_sum; 
+                end
+            `AluOp_ADDI: 
+                begin
+                    arith_out = result_sum;
+                    if(i_reg1[31]==1 & i_reg2[31]==1 & result_sum[31]==0) begin
+                        over_sum = 1'b1;
+                    end
+                    else if(i_reg1[31]==0 & i_reg2[31]==0 & result_sum[31]==1) begin
+                        over_sum = 1'b1;
+                    end
+                    else begin
+                        over_sum = 1'b0;
+                    end
+                end 
+            `AluOp_ADDIU:
+                begin
+                    arith_out = result_sum; 
+                end                
+            `AluOp_SUB: 
+                begin
+                    arith_out = result_sub;
+                    if(i_reg1[31]==0 & i_reg2[31]==1 & result_sub[31]==1) begin
+                        over_sub = 1'b1;
+                    end
+                    else if(i_reg1[31]==1 & i_reg2[31]==0 & result_sub[31]==0) begin
+                        over_sub = 1'b1;
+                    end
+                    else begin
+                        over_sub = 1'b0;
+                    end
+                end 
+            `AluOp_SUBU:
+                begin
+                    arith_out = result_sub;     
+                end
+            `AluOp_SLT: 
+                begin
+                    if(reg1_lt_reg2==1'b1) begin
+                        arith_out = 32'b1;
+                    end
+                    else begin
+                        arith_out = 32'b0;
+                    end
+                end
+            `AluOp_SLTU: 
+                begin
+                    if(reg1_ltu_reg2==1'b1) begin
+                        arith_out = 32'b1;
+                    end
+                    else begin
+                        arith_out = 32'b0;
+                    end
+                end
+            `AluOp_SLTI: 
+                begin
+                    if(reg1_lt_reg2==1'b1) begin
+                        arith_out = 32'b1;
+                    end
+                    else begin
+                        arith_out = 32'b0;
+                    end
+                end
+            `AluOp_SLTIU: 
+                begin
+                    if(reg1_ltu_reg2==1'b1) begin
+                        arith_out = 32'b1;
+                    end
+                    else begin
+                        arith_out = 32'b0;
+                    end
+                end            
+            `AluOp_MULT: 
+                begin
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = mulres;
+                end   
+            `AluOp_MULTU: 
+                begin
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = mulres;
+                end
+            `AluOp_DIV: 
+                begin
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = i_div_result;
+                end                
+            `AluOp_CLZ: 
+                begin
+                    if(i_reg1[31:16] == 16'b0) begin
+                        if(i_reg1[15:8] == 8'b0) begin
+                            if(i_reg1[7:4] == 4'b0) begin
+                                if(i_reg1[3:2] == 2'b0) begin
+                                    if(i_reg1[1] == 1'b0) begin
+                                        if(i_reg1[0] == 1'b0) begin
+                                            arith_out = 32;
+                                        end
+                                        else begin
+                                            arith_out = 31;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 30;
+                                    end                                                  
                                 end
                                 else begin
-                                    over_sum = 1'b0;
+                                   if(i_reg1[3] == 1'b0) begin
+                                        if(i_reg1[2] == 1'b0) begin
+                                            arith_out = 30;
+                                        end
+                                        else begin
+                                            arith_out = 29;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 28;
+                                    end
                                 end
                             end
-                `AluOp_ADDU:begin
-                               arith_out = result_sum; 
-                            end
-                `AluOp_ADDI: begin
-                                arith_out = result_sum;
-                                if(i_reg1[31]==1 & i_reg2[31]==1 & result_sum[31]==0) begin
-                                    over_sum = 1'b1;
-                                end
-                                else if(i_reg1[31]==0 & i_reg2[31]==0 & result_sum[31]==1) begin
-                                    over_sum = 1'b1;
-                                end
-                                else begin
-                                    over_sum = 1'b0;
-                                end
-                            end 
-                `AluOp_ADDIU:begin
-                               arith_out = result_sum; 
-                            end                
-                `AluOp_SUB: begin
-                                arith_out = result_sub;
-                                if(i_reg1[31]==0 & i_reg2[31]==1 & result_sub[31]==1) begin
-                                    over_sub = 1'b1;
-                                end
-                                else if(i_reg1[31]==1 & i_reg2[31]==0 & result_sub[31]==0) begin
-                                    over_sub = 1'b1;
+                            else begin
+                                if(i_reg1[7:6] == 2'b0) begin
+                                    if(i_reg1[5] == 1'b0) begin
+                                        if(i_reg1[4] == 1'b0) begin
+                                            arith_out = 28;
+                                        end
+                                        else begin
+                                            arith_out = 27;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 26;
+                                    end                                                  
                                 end
                                 else begin
-                                    over_sub = 1'b0;
-                                end
-                            end 
-                `AluOp_SUBU:begin
-                               arith_out = result_sub;     
-                            end
-                `AluOp_SLT: begin
-                                if(reg1_lt_reg2==1'b1) begin
-                                    arith_out = 32'b1;
-                                end
-                                else begin
-                                    arith_out = 32'b0;
+                                   if(i_reg1[7] == 1'b0) begin
+                                        if(i_reg1[6] == 1'b0) begin
+                                            arith_out = 26;
+                                        end
+                                        else begin
+                                            arith_out = 25;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 24;
+                                    end
                                 end
                             end
-                `AluOp_SLTU: begin
-                                if(reg1_ltu_reg2==1'b1) begin
-                                    arith_out = 32'b1;
+                        end  
+                        else begin
+                            if(i_reg1[15:12] == 4'b0) begin
+                                if(i_reg1[11:10] == 2'b0) begin
+                                    if(i_reg1[9] == 1'b0) begin
+                                        if(i_reg1[8] == 1'b0) begin
+                                            arith_out = 24;
+                                        end
+                                        else begin
+                                            arith_out = 23;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 22;
+                                    end                                                  
                                 end
                                 else begin
-                                    arith_out = 32'b0;
+                                   if(i_reg1[11] == 1'b0) begin
+                                        if(i_reg1[10] == 1'b0) begin
+                                            arith_out = 22;
+                                        end
+                                        else begin
+                                            arith_out = 21;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 20;
+                                    end
                                 end
                             end
-                `AluOp_SLTI: begin
-                                if(reg1_lt_reg2==1'b1) begin
-                                    arith_out = 32'b1;
+                            else begin
+                                if(i_reg1[15:14] == 2'b0) begin
+                                    if(i_reg1[13] == 1'b0) begin
+                                        if(i_reg1[12] == 1'b0) begin
+                                            arith_out = 20;
+                                        end
+                                        else begin
+                                            arith_out = 19;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 18;
+                                    end                                                  
                                 end
                                 else begin
-                                    arith_out = 32'b0;
+                                   if(i_reg1[15] == 1'b0) begin
+                                        if(i_reg1[14] == 1'b0) begin
+                                            arith_out = 18;
+                                        end
+                                        else begin
+                                            arith_out = 17;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 16;
+                                    end
                                 end
                             end
-                `AluOp_SLTIU: begin
-                                if(reg1_ltu_reg2==1'b1) begin
-                                    arith_out = 32'b1;
+                        end  
+                    end
+                    else begin
+                        if(i_reg1[31:24] == 8'b0) begin
+                            if(i_reg1[23:20] == 4'b0) begin
+                                if(i_reg1[19:18] == 2'b0) begin
+                                    if(i_reg1[17] == 1'b0) begin
+                                        if(i_reg1[16] == 1'b0) begin
+                                            arith_out = 16;
+                                        end
+                                        else begin
+                                            arith_out = 15;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 14;
+                                    end                                                  
                                 end
                                 else begin
-                                    arith_out = 32'b0;
+                                   if(i_reg1[19] == 1'b0) begin
+                                        if(i_reg1[18] == 1'b0) begin
+                                            arith_out = 14;
+                                        end
+                                        else begin
+                                            arith_out = 13;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 12;
+                                    end
                                 end
-                            end            
-                `AluOp_MULT: begin
-                                  o_whilo = 1'b1;
-                                  {o_hi,o_lo} = mulres;
-                             end   
-                `AluOp_MULTU: begin
-                                  o_whilo = 1'b1;
-                                  {o_hi,o_lo} = mulres;
-                              end
-                `AluOp_DIV: begin
-                                  o_whilo = 1'b1;
-                                  {o_hi,o_lo} = i_div_result;
-                            end                
-                `AluOp_CLZ  : begin
-                                  if(i_reg1[31:16] == 16'b0) begin
-                                      if(i_reg1[15:8] == 8'b0) begin
-                                          if(i_reg1[7:4] == 4'b0) begin
-                                              if(i_reg1[3:2] == 2'b0) begin
-                                                  if(i_reg1[1] == 1'b0) begin
-                                                      if(i_reg1[0] == 1'b0) begin
-                                                          arith_out = 32;
-                                                      end
-                                                      else begin
-                                                          arith_out = 31;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 30;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[3] == 1'b0) begin
-                                                      if(i_reg1[2] == 1'b0) begin
-                                                          arith_out = 30;
-                                                      end
-                                                      else begin
-                                                          arith_out = 29;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 28;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1[7:6] == 2'b0) begin
-                                                  if(i_reg1[5] == 1'b0) begin
-                                                      if(i_reg1[4] == 1'b0) begin
-                                                          arith_out = 28;
-                                                      end
-                                                      else begin
-                                                          arith_out = 27;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 26;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[7] == 1'b0) begin
-                                                      if(i_reg1[6] == 1'b0) begin
-                                                          arith_out = 26;
-                                                      end
-                                                      else begin
-                                                          arith_out = 25;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 24;
-                                                  end
-                                              end
-                                          end
-                                      end  
-                                      else begin
-                                          if(i_reg1[15:12] == 4'b0) begin
-                                              if(i_reg1[11:10] == 2'b0) begin
-                                                  if(i_reg1[9] == 1'b0) begin
-                                                      if(i_reg1[8] == 1'b0) begin
-                                                          arith_out = 24;
-                                                      end
-                                                      else begin
-                                                          arith_out = 23;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 22;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[11] == 1'b0) begin
-                                                      if(i_reg1[10] == 1'b0) begin
-                                                          arith_out = 22;
-                                                      end
-                                                      else begin
-                                                          arith_out = 21;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 20;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1[15:14] == 2'b0) begin
-                                                  if(i_reg1[13] == 1'b0) begin
-                                                      if(i_reg1[12] == 1'b0) begin
-                                                          arith_out = 20;
-                                                      end
-                                                      else begin
-                                                          arith_out = 19;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 18;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[15] == 1'b0) begin
-                                                      if(i_reg1[14] == 1'b0) begin
-                                                          arith_out = 18;
-                                                      end
-                                                      else begin
-                                                          arith_out = 17;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 16;
-                                                  end
-                                              end
-                                          end
-                                      end  
-                                  end
-                                  else begin
-                                      if(i_reg1[31:24] == 8'b0) begin
-                                          if(i_reg1[23:20] == 4'b0) begin
-                                              if(i_reg1[19:18] == 2'b0) begin
-                                                  if(i_reg1[17] == 1'b0) begin
-                                                      if(i_reg1[16] == 1'b0) begin
-                                                          arith_out = 16;
-                                                      end
-                                                      else begin
-                                                          arith_out = 15;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 14;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[19] == 1'b0) begin
-                                                      if(i_reg1[18] == 1'b0) begin
-                                                          arith_out = 14;
-                                                      end
-                                                      else begin
-                                                          arith_out = 13;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 12;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1[23:22] == 2'b0) begin
-                                                  if(i_reg1[21] == 1'b0) begin
-                                                      if(i_reg1[20] == 1'b0) begin
-                                                          arith_out = 12;
-                                                      end
-                                                      else begin
-                                                          arith_out = 11;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 10;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[23] == 1'b0) begin
-                                                      if(i_reg1[22] == 1'b0) begin
-                                                          arith_out = 10;
-                                                      end
-                                                      else begin
-                                                          arith_out = 9;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 8;
-                                                  end
-                                              end
-                                          end
-                                      end  
-                                      else begin
-                                          if(i_reg1[31:28] == 4'b0) begin
-                                              if(i_reg1[27:26] == 2'b0) begin
-                                                  if(i_reg1[25] == 1'b0) begin
-                                                      if(i_reg1[24] == 1'b0) begin
-                                                          arith_out = 8;
-                                                      end
-                                                      else begin
-                                                          arith_out = 7;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 6;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[27] == 1'b0) begin
-                                                      if(i_reg1[26] == 1'b0) begin
-                                                          arith_out = 6;
-                                                      end
-                                                      else begin
-                                                          arith_out = 5;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 4;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1[31:30] == 2'b0) begin
-                                                  if(i_reg1[29] == 1'b0) begin
-                                                      if(i_reg1[28] == 1'b0) begin
-                                                          arith_out = 4;
-                                                      end
-                                                      else begin
-                                                          arith_out = 3;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 2;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1[31] == 1'b0) begin
-                                                      if(i_reg1[30] == 1'b0) begin
-                                                          arith_out = 2;
-                                                      end
-                                                      else begin
-                                                          arith_out = 1;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 0;
-                                                  end
-                                              end
-                                          end
-                                      end
-                                  end
-//                                  arith_out = i_reg1[31] ? 0  : i_reg1[30] ? 1  : i_reg1[29] ? 2 :
-//				                              i_reg1[28] ? 3  : i_reg1[27] ? 4  : i_reg1[26] ? 5 :
-//				                              i_reg1[25] ? 6  : i_reg1[24] ? 7  : i_reg1[23] ? 8 : 
-//				                              i_reg1[22] ? 9  : i_reg1[21] ? 10 : i_reg1[20] ? 11 :
-//				                              i_reg1[19] ? 12 : i_reg1[18] ? 13 : i_reg1[17] ? 14 : 
-//				                              i_reg1[16] ? 15 : i_reg1[15] ? 16 : i_reg1[14] ? 17 : 
-//				                              i_reg1[13] ? 18 : i_reg1[12] ? 19 : i_reg1[11] ? 20 :
-//				                              i_reg1[10] ? 21 : i_reg1[9] ? 22  : i_reg1[8] ? 23 : 
-//				                              i_reg1[7] ? 24  : i_reg1[6] ? 25  : i_reg1[5] ? 26 : 
-//				                              i_reg1[4] ? 27  : i_reg1[3] ? 28  : i_reg1[2] ? 29 : 
-//				                              i_reg1[1] ? 30  : i_reg1[0] ? 31  : 32 ;      
-                              end
-                `AluOp_CLO  : begin
-                                  if(i_reg1_not[31:16] == 16'b0) begin
-                                      if(i_reg1_not[15:8] == 8'b0) begin
-                                          if(i_reg1_not[7:4] == 4'b0) begin
-                                              if(i_reg1_not[3:2] == 2'b0) begin
-                                                  if(i_reg1_not[1] == 1'b0) begin
-                                                      if(i_reg1_not[0] == 1'b0) begin
-                                                          arith_out = 32;
-                                                      end
-                                                      else begin
-                                                          arith_out = 31;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 30;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[3] == 1'b0) begin
-                                                      if(i_reg1_not[2] == 1'b0) begin
-                                                          arith_out = 30;
-                                                      end
-                                                      else begin
-                                                          arith_out = 29;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 28;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1_not[7:6] == 2'b0) begin
-                                                  if(i_reg1_not[5] == 1'b0) begin
-                                                      if(i_reg1_not[4] == 1'b0) begin
-                                                          arith_out = 28;
-                                                      end
-                                                      else begin
-                                                          arith_out = 27;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 26;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[7] == 1'b0) begin
-                                                      if(i_reg1_not[6] == 1'b0) begin
-                                                          arith_out = 26;
-                                                      end
-                                                      else begin
-                                                          arith_out = 25;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 24;
-                                                  end
-                                              end
-                                          end
-                                      end  
-                                      else begin
-                                          if(i_reg1_not[15:12] == 4'b0) begin
-                                              if(i_reg1_not[11:10] == 2'b0) begin
-                                                  if(i_reg1_not[9] == 1'b0) begin
-                                                      if(i_reg1_not[8] == 1'b0) begin
-                                                          arith_out = 24;
-                                                      end
-                                                      else begin
-                                                          arith_out = 23;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 22;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[11] == 1'b0) begin
-                                                      if(i_reg1_not[10] == 1'b0) begin
-                                                          arith_out = 22;
-                                                      end
-                                                      else begin
-                                                          arith_out = 21;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 20;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1_not[15:14] == 2'b0) begin
-                                                  if(i_reg1_not[13] == 1'b0) begin
-                                                      if(i_reg1_not[12] == 1'b0) begin
-                                                          arith_out = 20;
-                                                      end
-                                                      else begin
-                                                          arith_out = 19;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 18;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[15] == 1'b0) begin
-                                                      if(i_reg1_not[14] == 1'b0) begin
-                                                          arith_out = 18;
-                                                      end
-                                                      else begin
-                                                          arith_out = 17;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 16;
-                                                  end
-                                              end
-                                          end
-                                      end  
-                                  end
-                                  else begin
-                                      if(i_reg1_not[31:24] == 8'b0) begin
-                                          if(i_reg1_not[23:20] == 4'b0) begin
-                                              if(i_reg1_not[19:18] == 2'b0) begin
-                                                  if(i_reg1_not[17] == 1'b0) begin
-                                                      if(i_reg1_not[16] == 1'b0) begin
-                                                          arith_out = 16;
-                                                      end
-                                                      else begin
-                                                          arith_out = 15;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 14;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[19] == 1'b0) begin
-                                                      if(i_reg1_not[18] == 1'b0) begin
-                                                          arith_out = 14;
-                                                      end
-                                                      else begin
-                                                          arith_out = 13;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 12;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1_not[23:22] == 2'b0) begin
-                                                  if(i_reg1_not[21] == 1'b0) begin
-                                                      if(i_reg1_not[20] == 1'b0) begin
-                                                          arith_out = 12;
-                                                      end
-                                                      else begin
-                                                          arith_out = 11;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 10;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[23] == 1'b0) begin
-                                                      if(i_reg1_not[22] == 1'b0) begin
-                                                          arith_out = 10;
-                                                      end
-                                                      else begin
-                                                          arith_out = 9;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 8;
-                                                  end
-                                              end
-                                          end
-                                      end  
-                                      else begin
-                                          if(i_reg1_not[31:28] == 4'b0) begin
-                                              if(i_reg1_not[27:26] == 2'b0) begin
-                                                  if(i_reg1_not[25] == 1'b0) begin
-                                                      if(i_reg1_not[24] == 1'b0) begin
-                                                          arith_out = 8;
-                                                      end
-                                                      else begin
-                                                          arith_out = 7;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 6;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[27] == 1'b0) begin
-                                                      if(i_reg1_not[26] == 1'b0) begin
-                                                          arith_out = 6;
-                                                      end
-                                                      else begin
-                                                          arith_out = 5;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 4;
-                                                  end
-                                              end
-                                          end
-                                          else begin
-                                              if(i_reg1_not[31:30] == 2'b0) begin
-                                                  if(i_reg1_not[29] == 1'b0) begin
-                                                      if(i_reg1_not[28] == 1'b0) begin
-                                                          arith_out = 4;
-                                                      end
-                                                      else begin
-                                                          arith_out = 3;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 2;
-                                                  end                                                  
-                                              end
-                                              else begin
-                                                 if(i_reg1_not[31] == 1'b0) begin
-                                                      if(i_reg1_not[30] == 1'b0) begin
-                                                          arith_out = 2;
-                                                      end
-                                                      else begin
-                                                          arith_out = 1;
-                                                      end
-                                                  end
-                                                  else begin
-                                                      arith_out = 0;
-                                                  end
-                                              end
-                                          end
-                                      end
-                                  end                                     
-//                                  arith_out = i_reg1_not[31] ? 0  : i_reg1_not[30] ? 1  : i_reg1_not[29] ? 2 :
-//				                              i_reg1_not[28] ? 3  : i_reg1_not[27] ? 4  : i_reg1_not[26] ? 5 :
-//				                              i_reg1_not[25] ? 6  : i_reg1_not[24] ? 7  : i_reg1_not[23] ? 8 : 
-//				                              i_reg1_not[22] ? 9  : i_reg1_not[21] ? 10 : i_reg1_not[20] ? 11 :
-//				                              i_reg1_not[19] ? 12 : i_reg1_not[18] ? 13 : i_reg1_not[17] ? 14 : 
-//				                              i_reg1_not[16] ? 15 : i_reg1_not[15] ? 16 : i_reg1_not[14] ? 17 : 
-//				                              i_reg1_not[13] ? 18 : i_reg1_not[12] ? 19 : i_reg1_not[11] ? 20 :
-//				                              i_reg1_not[10] ? 21 : i_reg1_not[9] ? 22  : i_reg1_not[8] ? 23 : 
-//				                              i_reg1_not[7] ? 24  : i_reg1_not[6] ? 25  : i_reg1_not[5] ? 26 : 
-//				                              i_reg1_not[4] ? 27  : i_reg1_not[3] ? 28  : i_reg1_not[2] ? 29 : 
-//				                              i_reg1_not[1] ? 30  : i_reg1_not[0] ? 31  : 32 ;      
-                              end
-                `AluOp_MUL:   begin
-                                  arith_out =  mulres[31:0];      
-                              end
-                `AluOp_MADD: begin
-                                o_whilo = 1'b1;
-                                {o_hi,o_lo} = hilo_madd_msub_temp; 
-                             end    
-                `AluOp_MADDU: begin
-                                o_whilo = 1'b1;
-                                {o_hi,o_lo} = hilo_madd_msub_temp; 
-                             end
-                `AluOp_MSUB: begin
-                                o_whilo = 1'b1;
-                                {o_hi,o_lo} = hilo_madd_msub_temp; 
-                             end    
-                `AluOp_MSUBU: begin
-                                o_whilo = 1'b1;
-                                {o_hi,o_lo} = hilo_madd_msub_temp;
-                             end
-                `AluOp_LB:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end 
-                `AluOp_LBU:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end   
-                `AluOp_LH:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_LHU:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_LW:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end 
-                `AluOp_LWL:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_LWR:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_LL:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end             
-                `AluOp_SB:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_SH:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_SW:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_SWL:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_SWR:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                `AluOp_SC:   begin
-                                o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
-                             end
-                default: begin 
-                            logic_out = 32'b0; 
-                            arith_out = 32'b0;
-                         end
+                            end
+                            else begin
+                                if(i_reg1[23:22] == 2'b0) begin
+                                    if(i_reg1[21] == 1'b0) begin
+                                        if(i_reg1[20] == 1'b0) begin
+                                            arith_out = 12;
+                                        end
+                                        else begin
+                                            arith_out = 11;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 10;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1[23] == 1'b0) begin
+                                        if(i_reg1[22] == 1'b0) begin
+                                            arith_out = 10;
+                                        end
+                                        else begin
+                                            arith_out = 9;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 8;
+                                    end
+                                end
+                            end
+                        end  
+                        else begin
+                            if(i_reg1[31:28] == 4'b0) begin
+                                if(i_reg1[27:26] == 2'b0) begin
+                                    if(i_reg1[25] == 1'b0) begin
+                                        if(i_reg1[24] == 1'b0) begin
+                                            arith_out = 8;
+                                        end
+                                        else begin
+                                            arith_out = 7;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 6;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1[27] == 1'b0) begin
+                                        if(i_reg1[26] == 1'b0) begin
+                                            arith_out = 6;
+                                        end
+                                        else begin
+                                            arith_out = 5;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 4;
+                                    end
+                                end
+                            end
+                            else begin
+                                if(i_reg1[31:30] == 2'b0) begin
+                                    if(i_reg1[29] == 1'b0) begin
+                                        if(i_reg1[28] == 1'b0) begin
+                                            arith_out = 4;
+                                        end
+                                        else begin
+                                            arith_out = 3;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 2;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1[31] == 1'b0) begin
+                                        if(i_reg1[30] == 1'b0) begin
+                                            arith_out = 2;
+                                        end
+                                        else begin
+                                            arith_out = 1;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 0;
+                                    end
+                                end
+                            end
+                        end
+                    end
+//                                 arith_out = i_reg1[31] ? 0  : i_reg1[30] ? 1  : i_reg1[29] ? 2 :
+//			                              i_reg1[28] ? 3  : i_reg1[27] ? 4  : i_reg1[26] ? 5 :
+//			                              i_reg1[25] ? 6  : i_reg1[24] ? 7  : i_reg1[23] ? 8 : 
+//			                              i_reg1[22] ? 9  : i_reg1[21] ? 10 : i_reg1[20] ? 11 :
+//			                              i_reg1[19] ? 12 : i_reg1[18] ? 13 : i_reg1[17] ? 14 : 
+//			                              i_reg1[16] ? 15 : i_reg1[15] ? 16 : i_reg1[14] ? 17 : 
+//			                              i_reg1[13] ? 18 : i_reg1[12] ? 19 : i_reg1[11] ? 20 :
+//			                              i_reg1[10] ? 21 : i_reg1[9] ? 22  : i_reg1[8] ? 23 : 
+//			                              i_reg1[7] ? 24  : i_reg1[6] ? 25  : i_reg1[5] ? 26 : 
+//			                              i_reg1[4] ? 27  : i_reg1[3] ? 28  : i_reg1[2] ? 29 : 
+//			                              i_reg1[1] ? 30  : i_reg1[0] ? 31  : 32 ;      
+                end
+            `AluOp_CLO: 
+                begin
+                    if(i_reg1_not[31:16] == 16'b0) begin
+                        if(i_reg1_not[15:8] == 8'b0) begin
+                            if(i_reg1_not[7:4] == 4'b0) begin
+                                if(i_reg1_not[3:2] == 2'b0) begin
+                                    if(i_reg1_not[1] == 1'b0) begin
+                                        if(i_reg1_not[0] == 1'b0) begin
+                                            arith_out = 32;
+                                        end
+                                        else begin
+                                            arith_out = 31;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 30;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[3] == 1'b0) begin
+                                        if(i_reg1_not[2] == 1'b0) begin
+                                            arith_out = 30;
+                                        end
+                                        else begin
+                                            arith_out = 29;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 28;
+                                    end
+                                end
+                            end
+                            else begin
+                                if(i_reg1_not[7:6] == 2'b0) begin
+                                    if(i_reg1_not[5] == 1'b0) begin
+                                        if(i_reg1_not[4] == 1'b0) begin
+                                            arith_out = 28;
+                                        end
+                                        else begin
+                                            arith_out = 27;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 26;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[7] == 1'b0) begin
+                                        if(i_reg1_not[6] == 1'b0) begin
+                                            arith_out = 26;
+                                        end
+                                        else begin
+                                            arith_out = 25;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 24;
+                                    end
+                                end
+                            end
+                        end  
+                        else begin
+                            if(i_reg1_not[15:12] == 4'b0) begin
+                                if(i_reg1_not[11:10] == 2'b0) begin
+                                    if(i_reg1_not[9] == 1'b0) begin
+                                        if(i_reg1_not[8] == 1'b0) begin
+                                            arith_out = 24;
+                                        end
+                                        else begin
+                                            arith_out = 23;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 22;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[11] == 1'b0) begin
+                                        if(i_reg1_not[10] == 1'b0) begin
+                                            arith_out = 22;
+                                        end
+                                        else begin
+                                            arith_out = 21;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 20;
+                                    end
+                                end
+                            end
+                            else begin
+                                if(i_reg1_not[15:14] == 2'b0) begin
+                                    if(i_reg1_not[13] == 1'b0) begin
+                                        if(i_reg1_not[12] == 1'b0) begin
+                                            arith_out = 20;
+                                        end
+                                        else begin
+                                            arith_out = 19;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 18;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[15] == 1'b0) begin
+                                        if(i_reg1_not[14] == 1'b0) begin
+                                            arith_out = 18;
+                                        end
+                                        else begin
+                                            arith_out = 17;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 16;
+                                    end
+                                end
+                            end
+                        end  
+                    end
+                    else begin
+                        if(i_reg1_not[31:24] == 8'b0) begin
+                            if(i_reg1_not[23:20] == 4'b0) begin
+                                if(i_reg1_not[19:18] == 2'b0) begin
+                                    if(i_reg1_not[17] == 1'b0) begin
+                                        if(i_reg1_not[16] == 1'b0) begin
+                                            arith_out = 16;
+                                        end
+                                        else begin
+                                            arith_out = 15;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 14;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[19] == 1'b0) begin
+                                        if(i_reg1_not[18] == 1'b0) begin
+                                            arith_out = 14;
+                                        end
+                                        else begin
+                                            arith_out = 13;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 12;
+                                    end
+                                end
+                            end
+                            else begin
+                                if(i_reg1_not[23:22] == 2'b0) begin
+                                    if(i_reg1_not[21] == 1'b0) begin
+                                        if(i_reg1_not[20] == 1'b0) begin
+                                            arith_out = 12;
+                                        end
+                                        else begin
+                                            arith_out = 11;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 10;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[23] == 1'b0) begin
+                                        if(i_reg1_not[22] == 1'b0) begin
+                                            arith_out = 10;
+                                        end
+                                        else begin
+                                            arith_out = 9;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 8;
+                                    end
+                                end
+                            end
+                        end  
+                        else begin
+                            if(i_reg1_not[31:28] == 4'b0) begin
+                                if(i_reg1_not[27:26] == 2'b0) begin
+                                    if(i_reg1_not[25] == 1'b0) begin
+                                        if(i_reg1_not[24] == 1'b0) begin
+                                            arith_out = 8;
+                                        end
+                                        else begin
+                                            arith_out = 7;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 6;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[27] == 1'b0) begin
+                                        if(i_reg1_not[26] == 1'b0) begin
+                                            arith_out = 6;
+                                        end
+                                        else begin
+                                            arith_out = 5;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 4;
+                                    end
+                                end
+                            end
+                            else begin
+                                if(i_reg1_not[31:30] == 2'b0) begin
+                                    if(i_reg1_not[29] == 1'b0) begin
+                                        if(i_reg1_not[28] == 1'b0) begin
+                                            arith_out = 4;
+                                        end
+                                        else begin
+                                            arith_out = 3;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 2;
+                                    end                                                  
+                                end
+                                else begin
+                                   if(i_reg1_not[31] == 1'b0) begin
+                                        if(i_reg1_not[30] == 1'b0) begin
+                                            arith_out = 2;
+                                        end
+                                        else begin
+                                            arith_out = 1;
+                                        end
+                                    end
+                                    else begin
+                                        arith_out = 0;
+                                    end
+                                end
+                            end
+                        end
+                    end                                     
+//                             arith_out = i_reg1_not[31] ? 0  : i_reg1_not[30] ? 1  : i_reg1_not[29] ? 2 :
+//			                          i_reg1_not[28] ? 3  : i_reg1_not[27] ? 4  : i_reg1_not[26] ? 5 :
+//			                          i_reg1_not[25] ? 6  : i_reg1_not[24] ? 7  : i_reg1_not[23] ? 8 : 
+//			                          i_reg1_not[22] ? 9  : i_reg1_not[21] ? 10 : i_reg1_not[20] ? 11 :
+//			                          i_reg1_not[19] ? 12 : i_reg1_not[18] ? 13 : i_reg1_not[17] ? 14 : 
+//			                          i_reg1_not[16] ? 15 : i_reg1_not[15] ? 16 : i_reg1_not[14] ? 17 : 
+//			                          i_reg1_not[13] ? 18 : i_reg1_not[12] ? 19 : i_reg1_not[11] ? 20 :
+//			                          i_reg1_not[10] ? 21 : i_reg1_not[9] ? 22  : i_reg1_not[8] ? 23 : 
+//			                          i_reg1_not[7] ? 24  : i_reg1_not[6] ? 25  : i_reg1_not[5] ? 26 : 
+//			                          i_reg1_not[4] ? 27  : i_reg1_not[3] ? 28  : i_reg1_not[2] ? 29 : 
+//			                          i_reg1_not[1] ? 30  : i_reg1_not[0] ? 31  : 32 ;      
+                end
+            `AluOp_MUL:   
+                begin
+                    arith_out =  mulres[31:0];      
+                end
+            `AluOp_MADD: 
+                begin
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = hilo_madd_msub_temp; 
+                end  
+            `AluOp_MADDU: 
+                begin
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = hilo_madd_msub_temp; 
+                end
+            `AluOp_MSUB: 
+                begin
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = hilo_madd_msub_temp; 
+                end    
+            `AluOp_MSUBU: 
+                begin
+                    o_whilo = 1'b1;
+                    {o_hi,o_lo} = hilo_madd_msub_temp;
+                end
+            `AluOp_LB:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end 
+            `AluOp_LBU:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end   
+            `AluOp_LH:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_LHU:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_LW:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end 
+            `AluOp_LWL:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_LWR:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_LL:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end             
+            `AluOp_SB:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_SH:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_SW:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_SWL:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_SWR:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            `AluOp_SC:   
+                begin
+                    o_mem_addr = i_reg1 + {{16{i_inst[15]}},i_inst[15:0]};
+                end
+            default: 
+                begin 
+                    logic_out = 32'b0; 
+                    arith_out = 32'b0;
+                end
             endcase
         end
     end
@@ -956,10 +993,10 @@ module ex(
     
     always @ (*) begin
         case(i_alusel)
-            `AluSel_LOGIC: o_wdata = logic_out;
-            `AluSel_ARITH: o_wdata = arith_out;
-            `AluSel_J    : o_wdata = i_link_address;
-            default: o_wdata = 32'b0;
+        `AluSel_LOGIC: o_wdata = logic_out;
+        `AluSel_ARITH: o_wdata = arith_out;
+        `AluSel_J    : o_wdata = i_link_address;
+        default: o_wdata = 32'b0;
         endcase
     end
     
@@ -1052,39 +1089,42 @@ module ex(
             hilo_madd_msub_temp = {32'b0,32'b0};
         end
         case(i_aluop)
-        `AluOp_MADD,`AluOp_MADDU: begin
-                        if(i_cnt==2'b00) begin
-                            o_hilo_temp = mulres;
-                            o_cnt = 2'b01;
-                            hilo_madd_msub_temp = {32'b0,32'b0};
-                            stallreq_for_madd_msub = 1'b1;                        
-                        end
-                        else if(i_cnt==2'b01) begin
-                            o_hilo_temp = {32'b0,32'b0};
-                            o_cnt = 2'b10;
-                            hilo_madd_msub_temp = i_hilo_temp + {HI,LO};
-                            stallreq_for_madd_msub = 1'b0; 
-                        end
-                     end
-        `AluOp_MSUB,`AluOp_MSUBU: begin
-                        if(i_cnt==2'b00) begin
-                            o_hilo_temp = mulres;
-                            o_cnt = 2'b01;
-                            hilo_madd_msub_temp = {32'b0,32'b0};
-                            stallreq_for_madd_msub = 1'b1;                        
-                        end
-                        else if(i_cnt==2'b01) begin
-                            o_hilo_temp = {32'b0,32'b0};
-                            o_cnt = 2'b10;
-                            hilo_madd_msub_temp = ~i_hilo_temp + {HI,LO} + 1'b1;
-                            stallreq_for_madd_msub = 1'b0; 
-                        end
-                     end
-        default: begin
-                     o_hilo_temp = {32'b0,32'b0};
-                     o_cnt = 2'b00;
-                     stallreq_for_madd_msub = 1'b0;
-                 end
+        `AluOp_MADD,`AluOp_MADDU: 
+            begin
+                if(i_cnt==2'b00) begin
+                    o_hilo_temp = mulres;
+                    o_cnt = 2'b01;
+                    hilo_madd_msub_temp = {32'b0,32'b0};
+                    stallreq_for_madd_msub = 1'b1;                        
+                end
+                else if(i_cnt==2'b01) begin
+                    o_hilo_temp = {32'b0,32'b0};
+                    o_cnt = 2'b10;
+                    hilo_madd_msub_temp = i_hilo_temp + {HI,LO};
+                    stallreq_for_madd_msub = 1'b0; 
+                end
+            end
+        `AluOp_MSUB,`AluOp_MSUBU: 
+            begin
+                if(i_cnt==2'b00) begin
+                    o_hilo_temp = mulres;
+                    o_cnt = 2'b01;
+                    hilo_madd_msub_temp = {32'b0,32'b0};
+                    stallreq_for_madd_msub = 1'b1;                        
+                end
+                else if(i_cnt==2'b01) begin
+                    o_hilo_temp = {32'b0,32'b0};
+                    o_cnt = 2'b10;
+                    hilo_madd_msub_temp = ~i_hilo_temp + {HI,LO} + 1'b1;
+                    stallreq_for_madd_msub = 1'b0; 
+                end
+            end
+        default: 
+            begin
+                o_hilo_temp = {32'b0,32'b0};
+                o_cnt = 2'b00;
+                stallreq_for_madd_msub = 1'b0;
+            end
         endcase
     end
     always @ (*) begin
@@ -1118,36 +1158,38 @@ module ex(
             o_div_start   = 1'b0;
             o_signed_div  = 1'b0;
             case(i_aluop)
-                `AluOp_DIV: begin
-                                if(i_div_ready == 1'b0) begin
-                                    stallreq_for_div = 1'b1;
-                                    o_div_opdata1 = i_reg1;
-                                    o_div_opdata2 = i_reg2;
-                                    o_div_start   = 1'b1;
-                                    o_signed_div  = 1'b1;
-                                end
-                                else if(i_div_ready == 1'b1) begin
-                                    stallreq_for_div = 1'b0;
-                                    o_div_opdata1 = i_reg1;
-                                    o_div_opdata2 = i_reg2;
-                                    o_div_start   = 1'b0;
-                                    o_signed_div  = 1'b1;
-                                end
-                                else begin
-                                    stallreq_for_div = 1'b0;
-                                    o_div_opdata1 = 32'b0;
-                                    o_div_opdata2 = 32'b0;
-                                    o_div_start   = 1'b0;
-                                    o_signed_div  = 1'b0;
-                                end
-                            end
-                default: begin
-                             stallreq_for_div = 1'b0;
-                             o_div_opdata1 = 32'b0;
-                             o_div_opdata2 = 32'b0;
-                             o_div_start   = 1'b0;
-                             o_signed_div  = 1'b0;
-                         end
+            `AluOp_DIV: 
+                begin
+                    if(i_div_ready == 1'b0) begin
+                        stallreq_for_div = 1'b1;
+                        o_div_opdata1 = i_reg1;
+                        o_div_opdata2 = i_reg2;
+                        o_div_start   = 1'b1;
+                        o_signed_div  = 1'b1;
+                    end
+                    else if(i_div_ready == 1'b1) begin
+                        stallreq_for_div = 1'b0;
+                        o_div_opdata1 = i_reg1;
+                        o_div_opdata2 = i_reg2;
+                        o_div_start   = 1'b0;
+                        o_signed_div  = 1'b1;
+                    end
+                    else begin
+                        stallreq_for_div = 1'b0;
+                        o_div_opdata1 = 32'b0;
+                        o_div_opdata2 = 32'b0;
+                        o_div_start   = 1'b0;
+                        o_signed_div  = 1'b0;
+                    end
+                end
+            default: 
+                begin
+                    stallreq_for_div = 1'b0;
+                    o_div_opdata1 = 32'b0;
+                    o_div_opdata2 = 32'b0;
+                    o_div_start   = 1'b0;
+                    o_signed_div  = 1'b0;
+                end
             endcase
         end
     end
