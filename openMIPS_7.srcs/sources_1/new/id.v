@@ -179,1008 +179,1065 @@ module id(
             
             
             case(opcode)
-                `OP_ORI: begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_ORI;
-                            o_alusel    = `AluSel_LOGIC;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{1'b0}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_XORI: begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_XORI;
-                            o_alusel    = `AluSel_LOGIC;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{1'b0}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LUI: begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LUI;
-                            o_alusel    = `AluSel_LOGIC;
-                            o_reg1_read = 1'b0;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{1'b0}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_ANDI: begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_ANDI;
-                            o_alusel    = `AluSel_LOGIC;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{1'b0}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_ADDI:begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_ADDI;
-                            o_alusel    = `AluSel_ARITH;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_ADDIU:begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_ADDIU;
-                            o_alusel    = `AluSel_ARITH;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SLTI:begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SLTI;
-                            o_alusel    = `AluSel_ARITH;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SLTIU:begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SLTIU;
-                            o_alusel    = `AluSel_ARITH;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                            instvalid                 = 1'b1;
-                         end
-                `OP_J:   begin
+            `OP_ORI:
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_ORI;
+                    o_alusel    = `AluSel_LOGIC;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{1'b0}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_XORI: 
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_XORI;
+                    o_alusel    = `AluSel_LOGIC;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{1'b0}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_LUI: 
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LUI;
+                    o_alusel    = `AluSel_LOGIC;
+                    o_reg1_read = 1'b0;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{1'b0}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_ANDI: 
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_ANDI;
+                    o_alusel    = `AluSel_LOGIC;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{1'b0}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_ADDI:
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_ADDI;
+                    o_alusel    = `AluSel_ARITH;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_ADDIU:
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_ADDIU;
+                    o_alusel    = `AluSel_ARITH;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_SLTI:
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SLTI;
+                    o_alusel    = `AluSel_ARITH;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_SLTIU:
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SLTIU;
+                    o_alusel    = `AluSel_ARITH;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                    instvalid                 = 1'b1;
+                end
+            `OP_J:   
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = `AluOp_J;
+                    o_alusel    = `AluSel_J;
+                    o_reg1_read = 1'b0;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = 32'b0;
+                    o_branch_flag             = 1'b1;
+                    o_branch_target_address   = {pc_plus_4[31:28],i_inst[25:0],{2{1'b0}}};
+                    o_next_inst_in_delayslot  = 1'b1;   
+                    instvalid                 = 1'b1; 
+                end
+            `OP_JAL:   
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = 5'b11111;
+                    o_aluop     = `AluOp_JAL;
+                    o_alusel    = `AluSel_J;
+                    o_reg1_read = 1'b0;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = pc_plus_8;
+                    o_branch_flag             = 1'b1;
+                    o_branch_target_address   = {pc_plus_4[31:28],i_inst[25:0],{2{1'b0}}};
+                    o_next_inst_in_delayslot  = 1'b1;   
+                    instvalid                 = 1'b1; 
+                end
+            `OP_BEQ,`OP_B:   
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = `AluOp_BEQ;
+                    o_alusel    = `AluSel_J;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = 32'b0;
+                    o_branch_flag             = (o_reg1 == o_reg2)? 1'b1: 1'b0;
+                    o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                    o_next_inst_in_delayslot  = 1'b1;    
+                    instvalid                 = 1'b1;
+                end
+            `OP_BGTZ:   
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = `AluOp_BGTZ;
+                    o_alusel    = `AluSel_J;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = 32'b0;
+                    o_branch_flag             = (o_reg1[31]!=1'b1 & o_reg1 != 32'b0)? 1'b1: 1'b0;
+                    o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                    o_next_inst_in_delayslot  = 1'b1;    
+                    instvalid                 = 1'b1;
+                end
+            `OP_BLEZ:   
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = `AluOp_BLEZ;
+                    o_alusel    = `AluSel_J;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = 32'b0;
+                    o_branch_flag             = (o_reg1[31]==1'b1 | o_reg1 == 32'b0)? 1'b1: 1'b0;
+                    o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                    o_next_inst_in_delayslot  = 1'b1;   
+                    instvalid                 = 1'b1; 
+                end
+            `OP_BNE:   
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = `AluOp_BNE;
+                    o_alusel    = `AluSel_J;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = 32'b0;
+                    o_branch_flag             = (o_reg1 != o_reg2)? 1'b1: 1'b0;
+                    o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                    o_next_inst_in_delayslot  = 1'b1;    
+                    instvalid                 = 1'b1;
+                end
+            `OP_LB:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LB;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_LBU:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LBU;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_LH:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LH;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_LHU:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LHU;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_LW:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LW;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_LWL:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LWL;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_LWR:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LWR;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_LL: 
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_LL;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_SB:  
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SB;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_SH:  
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SH;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_SW:  
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SW;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_SWL:  
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SWL;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_SWR:  
+                begin
+                    o_wreg      = 1'b0;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SWR;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_SC:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[20:16];
+                    o_aluop     = `AluOp_SC;
+                    o_alusel    = `AluSel_LOAD;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    instvalid                 = 1'b1;
+                end
+            `OP_REGIMM: 
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = 8'b0;
+                    o_alusel    = `AluSel_LOGIC;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = 32'b0;
+                    o_branch_flag             = 1'b0;
+                    o_branch_target_address   = 32'b0;
+                    o_next_inst_in_delayslot  = 1'b0;
+                    imm                       = 32'b0;
+                    instvalid                 = 1'b0;
+                    execepttype_is_syscall    = 1'b0;
+                    execepttype_is_eret       = 1'b0;
+                    case(rt)
+                    `Funct_BLTZ: 
+                        begin
                             o_wreg      = 1'b0;
                             o_wd        = i_inst[15:11];
-                            o_aluop     = `AluOp_J;
+                            o_aluop     = `AluOp_BLTZ;
                             o_alusel    = `AluSel_J;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            o_link_addr = 32'b0;
+                            o_branch_flag             = (o_reg1[31] == 1'b1)? 1'b1: 1'b0;
+                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                            o_next_inst_in_delayslot  = 1'b1;    
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_BLTZAL: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = 5'b11111;
+                            o_aluop     = `AluOp_BLTZAL;
+                            o_alusel    = `AluSel_J;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            o_link_addr = pc_plus_8;
+                            o_branch_flag             = (o_reg1[31] == 1'b1)? 1'b1: 1'b0;
+                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                            o_next_inst_in_delayslot  = 1'b1;    
+                            instvalid                 = 1'b1;   
+                        end
+                    `Funct_BGEZ: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_BGEZ;
+                            o_alusel    = `AluSel_J;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            o_link_addr = 32'b0;
+                            o_branch_flag             = (o_reg1[31] == 1'b0)? 1'b1: 1'b0;
+                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                            o_next_inst_in_delayslot  = 1'b1;     
+                            instvalid                 = 1'b1;  
+                        end
+                    `Funct_BGEZAL,`Funct_BAL: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = 5'b11111;
+                            o_aluop     = `AluOp_BGEZAL;
+                            o_alusel    = `AluSel_J;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            o_link_addr = pc_plus_8;
+                            o_branch_flag             = (o_reg1[31] == 1'b0)? 1'b1: 1'b0;
+                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
+                            o_next_inst_in_delayslot  = 1'b1;      
+                            instvalid                 = 1'b1; 
+                        end
+                    `Funct_TEQI: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TEQI;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end 
+                    `Funct_TGEI: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TGEI;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end   
+                    `Funct_TGEIU: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TGEIU;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end
+                    `Funct_TLTI: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TLTI;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end  
+                    `Funct_TLTIU: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TLTIU;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end 
+                    `Funct_TNEI: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TNEI;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            imm         = {{16{i_inst[15]}},i_inst[15:0]};
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end                          
+                    default:o_aluop   = `AluOp_ERROR;
+                    endcase
+                end
+            `OP_R:   
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = 8'b0;
+                    o_alusel    = `AluSel_LOGIC;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                    o_link_addr = 32'b0;
+                    o_branch_flag             = 1'b0;
+                    o_branch_target_address   = 32'b0;
+                    o_next_inst_in_delayslot  = 1'b0;   
+                    instvalid                 = 1'b0;
+                    
+                    execepttype_is_syscall    = 1'b0;
+                    execepttype_is_eret       = 1'b0;
+                    case(funct)
+                    `Funct_AND: 
+                        begin
+                            o_aluop =`AluOp_AND;   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_OR:  
+                        begin
+                            o_aluop =`AluOp_OR;   
+                            instvalid                 = 1'b1;
+                                    
+                        end
+                    `Funct_XOR: 
+                        begin
+                            o_aluop =`AluOp_XOR;   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_NOR: 
+                        begin
+                            o_aluop =`AluOp_NOR;
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_SLL: 
+                        begin
+                            o_aluop     =`AluOp_SLL;
                             o_reg1_read = 1'b0;
+                            imm         = {{27{1'b0}},i_inst[10:6]};   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_SRL: 
+                        begin
+                            o_aluop     =`AluOp_SRL;
+                            o_reg1_read = 1'b0;
+                            imm         = {{27{1'b0}},i_inst[10:6]};   
+                            instvalid                 = 1'b1;
+                        end
+                    
+                    `Funct_SRA: 
+                        begin
+                            o_aluop     =`AluOp_SRA;
+                            o_reg1_read = 1'b0;
+                            imm         = {{27{1'b0}},i_inst[10:6]};   
+                            instvalid                 = 1'b1;
+                        end      
+                    `Funct_SLLV: 
+                        begin
+                            o_aluop     =`AluOp_SLLV;     
+                            instvalid                 = 1'b1;     
+                        end         
+                    `Funct_SRLV: 
+                        begin
+                            o_aluop     =`AluOp_SRLV;     
+                            instvalid                 = 1'b1;
+                        end           
+                    `Funct_SRLV: 
+                        begin
+                            o_aluop     =`AluOp_SRAV;       
+                            instvalid                 = 1'b1; 
+                        end               
+                    `Funct_MOVN: 
+                        begin
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_aluop  =`AluOp_MOVN;
+                            if(i_reg2_data == 32'b0) o_wreg = 1'b0;   
+                            instvalid                 = 1'b1;
+                        end    
+                    `Funct_MOVZ: 
+                        begin
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_aluop  =`AluOp_MOVZ;
+                            if(i_reg2_data != 32'b0) o_wreg = 1'b0;   
+                            instvalid                 = 1'b1;
+                        end 
+                    `Funct_MFHI: 
+                        begin
+                            o_reg1_read = 1'b0;
+                            o_reg2_read = 1'b0;
+                            o_aluop     =`AluOp_MFHI;
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];   
+                            instvalid                 = 1'b1;
+                        end   
+                                 
+                    `Funct_MFLO: 
+                        begin
+                            o_reg1_read = 1'b0;
+                            o_reg2_read = 1'b0;
+                            o_aluop     =`AluOp_MFLO;
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];   
+                            instvalid                 = 1'b1;
+                        end  
+                    `Funct_MTHI: 
+                        begin
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_aluop     =`AluOp_MTHI;
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];   
+                            instvalid                 = 1'b1;
+                        end     
+                    `Funct_MTLO: 
+                        begin
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_aluop     =`AluOp_MTLO;
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_ADD: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_ADD;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end    
+                    `Funct_ADDU: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_ADDU;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end             
+                                
+                    `Funct_SUB: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_SUB;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end 
+                    `Funct_SUBU: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_SUBU;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_SLT: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_SLT;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end 
+                    `Funct_SLTU: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_SLTU;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_MULT: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_MULT;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end  
+                    `Funct_MULTU: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_MULTU;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_DIV: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_DIV;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_DIV: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_DIVU;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_JR: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_JR;
+                            o_alusel    = `AluSel_J;
+                            o_reg1_read = 1'b1;
                             o_reg2_read = 1'b0;
                             o_reg1_addr = i_inst[25:21];
                             o_reg2_addr = i_inst[20:16];
                             o_link_addr = 32'b0;
                             o_branch_flag             = 1'b1;
-                            o_branch_target_address   = {pc_plus_4[31:28],i_inst[25:0],{2{1'b0}}};
-
+                            o_branch_target_address   = o_reg1;
                             o_next_inst_in_delayslot  = 1'b1;   
-                            instvalid                 = 1'b1; 
-                         end
-                `OP_JAL:   begin
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_JALR: 
+                        begin
                             o_wreg      = 1'b1;
-                            o_wd        = 5'b11111;
-                            o_aluop     = `AluOp_JAL;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_JALR;
                             o_alusel    = `AluSel_J;
-                            o_reg1_read = 1'b0;
+                            o_reg1_read = 1'b1;
                             o_reg2_read = 1'b0;
                             o_reg1_addr = i_inst[25:21];
                             o_reg2_addr = i_inst[20:16];
                             o_link_addr = pc_plus_8;
                             o_branch_flag             = 1'b1;
-                            o_branch_target_address   = {pc_plus_4[31:28],i_inst[25:0],{2{1'b0}}};
-
+                            o_branch_target_address   = o_reg1;
                             o_next_inst_in_delayslot  = 1'b1;   
-                            instvalid                 = 1'b1; 
-                         end
-                `OP_BEQ,`OP_B:   begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[15:11];
-                            o_aluop     = `AluOp_BEQ;
-                            o_alusel    = `AluSel_J;
+                            instvalid                 = 1'b1;
+                        end                          
+                    `Funct_TEQ: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TEQ;
                             o_reg1_read = 1'b1;
                             o_reg2_read = 1'b1;
                             o_reg1_addr = i_inst[25:21];
                             o_reg2_addr = i_inst[20:16];
-                            o_link_addr = 32'b0;
-                            o_branch_flag             = (o_reg1 == o_reg2)? 1'b1: 1'b0;
-                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-
-                            o_next_inst_in_delayslot  = 1'b1;    
-                            instvalid                 = 1'b1;
-                         end
-                `OP_BGTZ:   begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[15:11];
-                            o_aluop     = `AluOp_BGTZ;
-                            o_alusel    = `AluSel_J;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            o_link_addr = 32'b0;
-                            o_branch_flag             = (o_reg1[31]!=1'b1 & o_reg1 != 32'b0)? 1'b1: 1'b0;
-                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-
-                            o_next_inst_in_delayslot  = 1'b1;    
-                            instvalid                 = 1'b1;
-                         end
-                `OP_BLEZ:   begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[15:11];
-                            o_aluop     = `AluOp_BLEZ;
-                            o_alusel    = `AluSel_J;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            o_link_addr = 32'b0;
-                            o_branch_flag             = (o_reg1[31]==1'b1 | o_reg1 == 32'b0)? 1'b1: 1'b0;
-                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-
-                            o_next_inst_in_delayslot  = 1'b1;   
-                            instvalid                 = 1'b1; 
-                         end
-                `OP_BNE:   begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[15:11];
-                            o_aluop     = `AluOp_BNE;
-                            o_alusel    = `AluSel_J;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            o_link_addr = 32'b0;
-                            o_branch_flag             = (o_reg1 != o_reg2)? 1'b1: 1'b0;
-                            o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-
-                            o_next_inst_in_delayslot  = 1'b1;    
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LB:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LB;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LBU:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LBU;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LH:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LH;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LHU:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LHU;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LW:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LW;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LWL:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LWL;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LWR:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LWR;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_LL : begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_LL;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b0;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SB:  begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SB;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SH:  begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SH;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SW:  begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SW;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SWL:  begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SWL;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SWR:  begin
-                            o_wreg      = 1'b0;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SWR;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_SC:  begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[20:16];
-                            o_aluop     = `AluOp_SC;
-                            o_alusel    = `AluSel_LOAD;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            instvalid                 = 1'b1;
-                         end
-                `OP_REGIMM: begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[15:11];
-                            o_aluop     = 8'b0;
-                            o_alusel    = `AluSel_LOGIC;
-                            o_reg1_read = 1'b1;
-                            o_reg2_read = 1'b1;
-                            o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                            o_link_addr = 32'b0;
-                            o_branch_flag             = 1'b0;
-                            o_branch_target_address   = 32'b0;
-                            o_next_inst_in_delayslot  = 1'b0;
-                            
-                            imm                       = 32'b0;
-                            instvalid                 = 1'b0;
+                            instvalid   = 1'b1;
                             execepttype_is_syscall    = 1'b0;
                             execepttype_is_eret       = 1'b0;
-                            case(rt)
-                                `Funct_BLTZ: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_BLTZ;
-                                                o_alusel    = `AluSel_J;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];
-                                                o_link_addr = 32'b0;
-                                                o_branch_flag             = (o_reg1[31] == 1'b1)? 1'b1: 1'b0;
-                                                o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-                                                o_next_inst_in_delayslot  = 1'b1;    
-                                                instvalid                 = 1'b1;
-                                              end
-                                `Funct_BLTZAL: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = 5'b11111;
-                                                o_aluop     = `AluOp_BLTZAL;
-                                                o_alusel    = `AluSel_J;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];
-                                                o_link_addr = pc_plus_8;
-                                                o_branch_flag             = (o_reg1[31] == 1'b1)? 1'b1: 1'b0;
-                                                o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-                                                o_next_inst_in_delayslot  = 1'b1;    
-                                                instvalid                 = 1'b1;   
-                                              end
-                                `Funct_BGEZ: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_BGEZ;
-                                                o_alusel    = `AluSel_J;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];
-                                                o_link_addr = 32'b0;
-                                                o_branch_flag             = (o_reg1[31] == 1'b0)? 1'b1: 1'b0;
-                                                o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-                                                o_next_inst_in_delayslot  = 1'b1;     
-                                                instvalid                 = 1'b1;  
-                                              end
-                                `Funct_BGEZAL,`Funct_BAL: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = 5'b11111;
-                                                o_aluop     = `AluOp_BGEZAL;
-                                                o_alusel    = `AluSel_J;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];
-                                                o_link_addr = pc_plus_8;
-                                                o_branch_flag             = (o_reg1[31] == 1'b0)? 1'b1: 1'b0;
-                                                o_branch_target_address   = {{14{i_inst[15]}},i_inst[15:0],{2{1'b0}}} + pc_plus_4;
-                                                o_next_inst_in_delayslot  = 1'b1;      
-                                                instvalid                 = 1'b1; 
-                                              end
-                                `Funct_TEQI: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TEQI;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b0;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end 
-                                `Funct_TGEI: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TGEI;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b0;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end   
-                                `Funct_TGEIU: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TGEIU;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b0;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                `Funct_TLTI: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TLTI;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b0;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end  
-                                `Funct_TLTIU: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TLTIU;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b0;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end 
-                                `Funct_TNEI: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TNEI;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b0;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        imm         = {{16{i_inst[15]}},i_inst[15:0]};
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end                          
-                                default:o_aluop   = `AluOp_ERROR;
-                            endcase
-                         end
-                `OP_R:   begin
-                            o_wreg      = 1'b1;
-                            o_wd        = i_inst[15:11];
-                            o_aluop     = 8'b0;
-                            o_alusel    = `AluSel_LOGIC;
+                        end
+                    `Funct_TGE: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TGE;
                             o_reg1_read = 1'b1;
                             o_reg2_read = 1'b1;
                             o_reg1_addr = i_inst[25:21];
                             o_reg2_addr = i_inst[20:16];
-                            o_link_addr = 32'b0;
-                            o_branch_flag             = 1'b0;
-                            o_branch_target_address   = 32'b0;
-                            o_next_inst_in_delayslot  = 1'b0;   
-                            instvalid                 = 1'b0;
-                            
+                            instvalid   = 1'b1;
                             execepttype_is_syscall    = 1'b0;
                             execepttype_is_eret       = 1'b0;
-                            case(funct)
-                                `Funct_AND: begin
-                                                o_aluop =`AluOp_AND;   
-                                                instvalid                 = 1'b1;
-                                                
-                                            end
-                                `Funct_OR:  begin
-                                                o_aluop =`AluOp_OR;   
-                                                instvalid                 = 1'b1;
-                                                
-                                            end
-                                `Funct_XOR: begin
-                                                o_aluop =`AluOp_XOR;   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_NOR: begin
-                                                o_aluop =`AluOp_NOR;
-                                                   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_SLL: begin
-                                                o_aluop     =`AluOp_SLL;
-                                                o_reg1_read = 1'b0;
-                                                imm         = {{27{1'b0}},i_inst[10:6]};   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_SRL: begin
-                                                o_aluop     =`AluOp_SRL;
-                                                o_reg1_read = 1'b0;
-                                                imm         = {{27{1'b0}},i_inst[10:6]};   
-                                                instvalid                 = 1'b1;
-                                            end
-                                
-                                `Funct_SRA: begin
-                                                o_aluop     =`AluOp_SRA;
-                                                o_reg1_read = 1'b0;
-                                                imm         = {{27{1'b0}},i_inst[10:6]};   
-                                                instvalid                 = 1'b1;
-                                            end
-                                            
-                                `Funct_SLLV: begin
-                                                 o_aluop     =`AluOp_SLLV;     
-                                                instvalid                 = 1'b1; 
-                                                    
-                                             end         
-                                `Funct_SRLV: begin
-                                                 o_aluop     =`AluOp_SRLV;     
-                                                instvalid                 = 1'b1;
-                                                   
-                                             end           
-                                `Funct_SRLV: begin
-                                                 o_aluop     =`AluOp_SRAV;
-                                                    
-                                                instvalid                 = 1'b1; 
-                                             end               
-                                `Funct_MOVN: begin
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_aluop  =`AluOp_MOVN;
-                                                if(i_reg2_data == 32'b0) o_wreg = 1'b0;   
-                                                instvalid                 = 1'b1;
-                                             end    
-                                `Funct_MOVZ: begin
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_aluop  =`AluOp_MOVZ;
-                                                if(i_reg2_data != 32'b0) o_wreg = 1'b0;   
-                                                instvalid                 = 1'b1;
-                                             end 
-                                `Funct_MFHI: begin
-                                                o_reg1_read = 1'b0;
-                                                o_reg2_read = 1'b0;
-                                                o_aluop     =`AluOp_MFHI;
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];   
-                                                instvalid                 = 1'b1;
-                                             end   
-                                             
-                                `Funct_MFLO: begin
-                                                o_reg1_read = 1'b0;
-                                                o_reg2_read = 1'b0;
-                                                o_aluop     =`AluOp_MFLO;
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];   
-                                                instvalid                 = 1'b1;
-                                             end  
-                                `Funct_MTHI: begin
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_aluop     =`AluOp_MTHI;
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];   
-                                                instvalid                 = 1'b1;
-                                             end     
-                                `Funct_MTLO: begin
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_aluop     =`AluOp_MTLO;
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];   
-                                                instvalid                 = 1'b1;
-                                             end
-                                `Funct_ADD: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_ADD;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end    
-                                `Funct_ADDU: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_ADDU;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end             
-                                            
-                                `Funct_SUB: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_SUB;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end 
-                                `Funct_SUBU: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_SUBU;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_SLT: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_SLT;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end 
-                                `Funct_SLTU: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_SLTU;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_MULT: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_MULT;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end  
-                                `Funct_MULTU: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_MULTU;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_DIV: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_DIV;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_DIV: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_DIVU;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_JR: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_JR;
-                                                o_alusel    = `AluSel_J;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];
-                                                o_link_addr = 32'b0;
-                                                o_branch_flag             = 1'b1;
-                                                o_branch_target_address   = o_reg1;
-
-                                                o_next_inst_in_delayslot  = 1'b1;   
-                                                instvalid                 = 1'b1;
-                                           end
-                                `Funct_JALR: begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_JALR;
-                                                o_alusel    = `AluSel_J;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];
-                                                o_link_addr = pc_plus_8;
-                                                o_branch_flag             = 1'b1;
-                                                o_branch_target_address   = o_reg1;
-
-                                                o_next_inst_in_delayslot  = 1'b1;   
-                                                instvalid                 = 1'b1;
-                                           end                          
-                                `Funct_TEQ: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TEQ;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b1;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                `Funct_TGE: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TGE;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b1;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                `Funct_TGEU: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TGEU;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b1;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                `Funct_TLT: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TLT;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b1;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                `Funct_TLTU: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TLTU;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b1;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                `Funct_TNE: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_TNE;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b1;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b0;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                `Funct_SYSCALL: 
-                                    begin
-                                        o_wreg = 1'b0;
-                                        o_aluop = `AluOp_SYSCALL;
-                                        o_reg1_read = 1'b1;
-                                        o_reg2_read = 1'b1;
-                                        o_reg1_addr = i_inst[25:21];
-                                        o_reg2_addr = i_inst[20:16];
-                                        instvalid   = 1'b1;
-                                        execepttype_is_syscall    = 1'b1;
-                                        execepttype_is_eret       = 1'b0;
-                                    end
-                                default : o_aluop   = `AluOp_ERROR;
-                            endcase
-                         end  
-                `OP_R2:  begin
+                        end
+                    `Funct_TGEU: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TGEU;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end
+                    `Funct_TLT: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TLT;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end
+                    `Funct_TLTU: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TLTU;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end
+                    `Funct_TNE: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_TNE;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b0;
+                            execepttype_is_eret       = 1'b0;
+                        end
+                    `Funct_SYSCALL: 
+                        begin
+                            o_wreg = 1'b0;
+                            o_aluop = `AluOp_SYSCALL;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];
+                            instvalid   = 1'b1;
+                            execepttype_is_syscall    = 1'b1;
+                            execepttype_is_eret       = 1'b0;
+                        end
+                    default : o_aluop   = `AluOp_ERROR;
+                    endcase
+                end  
+            `OP_R2:  
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = 8'b0;
+                    o_alusel    = `AluSel_ARITH;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b0;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];
+                       
+                    instvalid                 = 1'b0;
+                    
+                    execepttype_is_syscall    = 1'b0;
+                    execepttype_is_eret       = 1'b0;
+                    case(funct)
+                    `Funct_MADD:
+                        begin
+                                    o_wreg      = 1'b0;
+                                    o_wd        = i_inst[20:16];
+                                    o_aluop     = `AluOp_MADD;
+                                    o_alusel    = `AluSel_ARITH;
+                                    o_reg1_read = 1'b1;
+                                    o_reg2_read = 1'b1;
+                                    o_reg1_addr = i_inst[25:21];
+                                    o_reg2_addr = i_inst[20:16];   
+                                    instvalid                 = 1'b1;
+                        end
+                    `Funct_MADDU:
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[20:16];
+                            o_aluop     = `AluOp_MADDU;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_MSUB: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[20:16];
+                            o_aluop     = `AluOp_MSUB;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_MSUBU: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[20:16];
+                            o_aluop     = `AluOp_MSUBU;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end 
+                    `Funct_CLZ:
+                        begin
                             o_wreg      = 1'b1;
                             o_wd        = i_inst[15:11];
-                            o_aluop     = 8'b0;
+                            o_aluop     = `AluOp_CLZ;
                             o_alusel    = `AluSel_ARITH;
                             o_reg1_read = 1'b1;
                             o_reg2_read = 1'b0;
                             o_reg1_addr = i_inst[25:21];
-                            o_reg2_addr = i_inst[20:16];
-                               
-                            instvalid                 = 1'b0;
-                            
-                            execepttype_is_syscall    = 1'b0;
-                            execepttype_is_eret       = 1'b0;
-                            case(funct)
-                                `Funct_MADD:begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[20:16];
-                                                o_aluop     = `AluOp_MADD;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_MADDU:begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[20:16];
-                                                o_aluop     = `AluOp_MADDU;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_MSUB: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[20:16];
-                                                o_aluop     = `AluOp_MSUB;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                             end
-                                `Funct_MSUBU: begin
-                                                o_wreg      = 1'b0;
-                                                o_wd        = i_inst[20:16];
-                                                o_aluop     = `AluOp_MSUBU;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                             end 
-                                `Funct_CLZ:begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_CLZ;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_CLO:begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_CLO;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b0;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                `Funct_MUL:begin
-                                                o_wreg      = 1'b1;
-                                                o_wd        = i_inst[15:11];
-                                                o_aluop     = `AluOp_MUL;
-                                                o_alusel    = `AluSel_ARITH;
-                                                o_reg1_read = 1'b1;
-                                                o_reg2_read = 1'b1;
-                                                o_reg1_addr = i_inst[25:21];
-                                                o_reg2_addr = i_inst[20:16];   
-                                                instvalid                 = 1'b1;
-                                            end
-                                
-                                default : o_aluop   = `AluOp_ERROR;
-                            endcase
-                         end 
-                    
-                `OP_COP0:begin
-                             o_wreg      = 1'b1;
-                             o_wd        = i_inst[15:11];
-                             o_aluop     = 8'b0;
-                             o_alusel    = `AluSel_LOGIC;
-                             o_reg1_read = 1'b1;
-                             o_reg2_read = 1'b1;
-                             o_reg1_addr = i_inst[25:21];
-                             o_reg2_addr = i_inst[20:16];   
-                             instvalid                 = 1'b0;
-                             execepttype_is_syscall    = 1'b0;
-                             execepttype_is_eret       = 1'b0;
-                             case(rs)
-                             `Funct_MT: begin
-                                            o_wreg      = 1'b0;
-                                            o_wd        = i_inst[15:11];
-                                            o_aluop     = `AluOp_MTC0;
-                                            o_alusel    = `AluSel_LOGIC;
-                                            o_reg1_read = 1'b1;
-                                            o_reg2_read = 1'b0;
-                                            o_reg1_addr = i_inst[20:16];
-                                            o_reg2_addr = i_inst[15:11];   
-                                            instvalid                 = 1'b1;
-                                        end
-                             `Funct_MF: begin
-                                            o_wreg      = 1'b1;
-                                            o_wd        = i_inst[20:16];
-                                            o_aluop     = `AluOp_MFC0;
-                                            o_alusel    = `AluSel_LOGIC;
-                                            o_reg1_read = 1'b0;
-                                            o_reg2_read = 1'b0;
-                                            o_reg1_addr = i_inst[20:16];
-                                            o_reg2_addr = i_inst[15:11];
-                                               
-                                            instvalid                 = 1'b1;
-                                        end
-                             5'b10000:
-                                        begin
-                                            if(funct == 6'b011000) begin
-                                                o_wreg = 1'b0;                   
-                                                o_aluop = `AluOp_ERET;        
-                                                o_reg1_read = 1'b0;              
-                                                o_reg2_read = 1'b0;              
-                                                o_reg1_addr = i_inst[25:21];     
-                                                o_reg2_addr = i_inst[20:16];     
-                                                instvalid   = 1'b1;              
-                                                execepttype_is_syscall    = 1'b0;
-                                                execepttype_is_eret       = 1'b1; 
-                                            end 
-                                        end
-                                 default : o_aluop   = `AluOp_ERROR;
-                             endcase
-                         end
-                default: begin
-                            o_aluop  = `AluOp_ERROR;
-                            o_alusel = `AluSel_ERROR;
-                            imm      = 32'b0;
-                         end  
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_CLO:
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_CLO;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_MUL:
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_MUL;
+                            o_alusel    = `AluSel_ARITH;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b1;
+                            o_reg1_addr = i_inst[25:21];
+                            o_reg2_addr = i_inst[20:16];   
+                            instvalid                 = 1'b1;
+                        end
+                    default : o_aluop   = `AluOp_ERROR;
+                    endcase
+                end 
+                
+            `OP_COP0:
+                begin
+                    o_wreg      = 1'b1;
+                    o_wd        = i_inst[15:11];
+                    o_aluop     = 8'b0;
+                    o_alusel    = `AluSel_LOGIC;
+                    o_reg1_read = 1'b1;
+                    o_reg2_read = 1'b1;
+                    o_reg1_addr = i_inst[25:21];
+                    o_reg2_addr = i_inst[20:16];   
+                    instvalid                 = 1'b0;
+                    execepttype_is_syscall    = 1'b0;
+                    execepttype_is_eret       = 1'b0;
+                    case(rs)
+                    `Funct_MT: 
+                        begin
+                            o_wreg      = 1'b0;
+                            o_wd        = i_inst[15:11];
+                            o_aluop     = `AluOp_MTC0;
+                            o_alusel    = `AluSel_LOGIC;
+                            o_reg1_read = 1'b1;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[20:16];
+                            o_reg2_addr = i_inst[15:11];   
+                            instvalid                 = 1'b1;
+                        end
+                    `Funct_MF: 
+                        begin
+                            o_wreg      = 1'b1;
+                            o_wd        = i_inst[20:16];
+                            o_aluop     = `AluOp_MFC0;
+                            o_alusel    = `AluSel_LOGIC;
+                            o_reg1_read = 1'b0;
+                            o_reg2_read = 1'b0;
+                            o_reg1_addr = i_inst[20:16];
+                            o_reg2_addr = i_inst[15:11];                       
+                            instvalid                 = 1'b1;
+                        end
+                    5'b10000:
+                        begin
+                            if(funct == 6'b011000) begin
+                                o_wreg = 1'b0;                   
+                                o_aluop = `AluOp_ERET;        
+                                o_reg1_read = 1'b0;              
+                                o_reg2_read = 1'b0;              
+                                o_reg1_addr = i_inst[25:21];     
+                                o_reg2_addr = i_inst[20:16];     
+                                instvalid   = 1'b1;              
+                                execepttype_is_syscall    = 1'b0;
+                                execepttype_is_eret       = 1'b1; 
+                            end 
+                        end
+                    default : o_aluop   = `AluOp_ERROR;
+                    endcase
+                end
+            default: 
+                begin
+                    o_aluop  = `AluOp_ERROR;
+                    o_alusel = `AluSel_ERROR;
+                    imm      = 32'b0;
+                end  
             endcase
             
             
